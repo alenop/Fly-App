@@ -11,10 +11,11 @@
         <input/>
         <p>Confirmer le mot de passe</p>
         <input/>
-        <p>
-          <input type="submit" value="Inscription">
-        </p>
       </form>
+        <p>
+          <button @click="sign()">ins</button>
+        </p>
+      
     </div>
   </div>
 </template>
@@ -31,3 +32,10 @@ p {
   margin-top: 2vh;
 }
 </style>
+<script setup lang="ts">
+import axios from 'axios';
+async function sign(){
+  console.log(await axios.get('http://10.8.95.159:3000/user'));
+  //axios.post('');
+}
+</script>
