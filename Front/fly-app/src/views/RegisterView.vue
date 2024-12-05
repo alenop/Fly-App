@@ -2,20 +2,23 @@
   <div class="register">
     <h1>Inscription</h1>
     <div>
-      <form>
+      <form @submit.prevent="sign">
         <p>Nom d'utilisateur</p>
-        <input/>
+        <input type="text" v-model="username" placeholder="Entrez votre nom d'utilisateur" />
+        
         <p>Email</p>
-        <input/>
+        <input type="email" v-model="email" placeholder="Entrez votre email" />
+        
         <p>Mot de passe</p>
-        <input/>
+        <input type="password" v-model="password" placeholder="Entrez votre mot de passe" />
+        
         <p>Confirmer le mot de passe</p>
-        <input/>
-      </form>
+        <input type="password" v-model="confirmPassword" placeholder="Confirmez votre mot de passe" />
+        
         <p>
-          <button @click="sign()">ins</button>
+          <button type="submit">Inscription</button>
         </p>
-      
+      </form>
     </div>
   </div>
 </template>
@@ -32,10 +35,31 @@ p {
   margin-top: 2vh;
 }
 </style>
-<script setup lang="ts">
+<script language="ts">
+import router from '@/router';
 import axios from 'axios';
-async function sign(){
-  console.log(await axios.get('http://10.8.95.159:3000/user'));
-  //axios.post('');
-}
+export default {
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    };
+  },
+  methods: {
+    async sign() {
+      if (this.password !== this.confirmPassword) {
+        alert('Les mots de passe ne correspondent pas.');
+        return;
+      }
+      // Example: Print the form data to the console
+      await axios.post("http://localhost:3000/user/sign",{username:this.username,mail:this.email,password:this.password});
+
+      alert('Inscription réussie!');
+      router.push("/");
+      // Here, you can call an API or process the form data further.
+    },
+  },
+};
 </script>
