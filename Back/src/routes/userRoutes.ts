@@ -19,7 +19,9 @@ router.post('/login',(req: Request, res: Response) => {
 
 router.post('/sign',(req: Request, res: Response) => {
     const { username,mail, password } = req.body;
+    console.log(req.body);
     database.create(new User(username,mail),password);
+    res.json({message:"all is ok"});
 })
 
 export default router;
