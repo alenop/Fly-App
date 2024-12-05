@@ -2,5 +2,8 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.1"
+  },
+  "scripts": {
+    "dev": "npx ts-node-dev src/server.ts"
   }
 }
