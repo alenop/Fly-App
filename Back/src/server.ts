@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-
+import  routerUser  from './routes/userRoutes';
 // Load environment variables from .env file
 dotenv.config();
 
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON requests
 app.use(express.json());
-
+app.use('/user',routerUser);
 // Define a simple route
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, Express with TypeScript!');
