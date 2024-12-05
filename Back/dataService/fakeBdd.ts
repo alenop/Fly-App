@@ -8,6 +8,9 @@ private database:{[key:string]:User} = {
 }
 
     async create(user:User){
+        if(!await this.check(user.username,user.password)){
+            return false;
+        }
         const uuid = uuidv4();
         user.id = uuid;
         user.password = await this.hashPassword(user.password);
