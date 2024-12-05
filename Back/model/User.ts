@@ -1,5 +1,5 @@
 export class User {
-    username:string
+    username:string;
     mail:string;
     id?:string;
 
