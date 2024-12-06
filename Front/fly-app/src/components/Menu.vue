@@ -5,7 +5,7 @@
     },
     methods: {
       toAccueil() {
-        this.$router.push("/");
+        this.$router.push("/search");
       }
     },
   };

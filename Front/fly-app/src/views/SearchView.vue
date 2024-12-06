@@ -3,9 +3,9 @@
     <Menu />
     <div class="flex column center search">                 <!-- search bar-->       
       <h1>Accueil</h1>
-      <div class="flex row">
+      <div class="flex row search-item">
         <div class="flew column">
-          <p>Aéroport :</p>
+          <p>Aéroport de départ:</p>
           <select>
             <option> </option>
             <option>CDG</option>
@@ -13,26 +13,119 @@
             <option>DTW</option>
           </select>
         </div>
-        <div>
-          <p>Date :</p>
-          <input/>
+        <div class="flew column">
+          <p>Aéroport d'arrivée :</p>
+          <select>
+            <option> </option>
+            <option>CDG</option>
+            <option>JFK</option>
+            <option>DTW</option>
+          </select>
         </div>
         <button>Recherche</button>
       </div>
     </div>
 
-    <div class="flex column left">                 <!-- flight list-->
+    <div class="flex column left flights">                 <!-- flight list-->
       <div class="flex row flight">
         <div class="flex column">
           <h1>Vol n° 12345 - CDG-JFK</h1>
           <h2>Départ : Paris, France (CDG)</h2>
           <h2>Arrivée : New-York, États-Unis (JFK)</h2>
-          <h3>Durée : 7h</h3>
+          <h4>Durée : 7h</h4>
           <h4>Places disponibles : 880/1000</h4>
           <h4>Prix : 1000€</h4>
         </div>
-        <div class="flex">
-          <button>Réserver une place</button>
+        <div class="flex column flightinput">
+          <div class="flex row">
+            <p>Nombre de bagages (100€/bagages) : </p>
+            <select>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <div class="flex row">
+            <p>Date :</p>
+            <input/>
+          </div>
+          <button class="reservationbutton">Réserver une place</button>
+        </div>
+      </div>
+
+      <div class="flex row flight">
+        <div class="flex column">
+          <h1>Vol n° 14785 - CDG-BTW</h1>
+          <h2>Départ : Paris, France (CDG)</h2>
+          <h2>Arrivée : Boston, États-Unis (BTW)</h2>
+          <h4>Durée : 8h</h4>
+          <h4>Places disponibles : 700/700</h4>
+          <h4>Prix : 700€</h4>
+        </div>
+        <div class="flex column flightinput">
+          <div class="flex row">
+            <p>Nombre de bagages (100€/bagages) : </p>
+            <select>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <div class="flex row">
+            <p>Date :</p>
+            <input/>
+          </div>
+          <button class="reservationbutton">Réserver une place</button>
+        </div>
+      </div>
+
+      <div class="flex row flight">
+        <div class="flex column">
+          <h1>Vol n° 85236 - BTW-JFK</h1>
+          <h2>Départ : Boston, États-Unis (BTW)</h2>
+          <h2>Arrivée : New-York, États-Unis (JFK)</h2>
+          <h4>Durée : 1h</h4>
+          <h4>Places disponibles : 250/300</h4>
+          <h4>Prix : 300€</h4>
+        </div>
+        <div class="flex column flightinput">
+          <div class="flex row">
+            <p>Nombre de bagages (100€/bagages) : </p>
+            <select>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <div class="flex row">
+            <p>Date :</p>
+            <input/>
+          </div>
+          <button class="reservationbutton">Réserver une place</button>
         </div>
       </div>
     </div>
@@ -49,16 +142,17 @@
   flex-direction: row;
 }
 
+.column {
+  flex-direction: column;
+}
+
 .center {
   align-items: center;
 }
 
 .left {
-  margin-left: 15vw !important;
-}
+  margin-left: 10vw;
 
-.column {
-  flex-direction: column;
 }
 
 .page {
@@ -66,14 +160,66 @@
 }
 
 .search {
-  margin-top: 5vh !important; 
-  margin-bottom: 10vh !important;
+  margin-top: 5vh; 
+  margin-bottom: 10vh;
+
+}
+
+.search-item {
+  column-gap: 5vw;
+  align-items: baseline;
+}
+
+.flights {
+  gap: 35px;
 }
 
 .flight {
   align-items: baseline;
   align-content: space-between;
   gap: 10px;
+  border: outset 2px #4444FF;
+  border-radius: 15px;
+  max-width: 55vw;
+  justify-content: space-around;
+  padding: 3vh 2vw;
+ }
+
+ .flightinput {
+  row-gap: 5vh;
+ }
+
+ button {
+  border: none;
+  border-radius: 15px;
+  background-color: #4444FF;
+  color: white;
+  width: 12vw;
+  height: 4vh;
+  font-family: Georgia, 'Times New Roman', Times, serif
+ }
+
+ h1 {
+  text-decoration: underline;
+  font-weight: 200;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+ }
+
+ h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+ }
+
+ h4 {
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+ }
+
+ p {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+ }
+
+ input {
+  margin-left: 10px;
  }
 </style>
 

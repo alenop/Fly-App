@@ -30,7 +30,7 @@ const router = createRouter({
       component: RegisterView,
     },
     {
-      path: '/',
+      path: '/search',
       name: 'search',
       component: SearchView,
     },
