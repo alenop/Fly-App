@@ -14,6 +14,12 @@ const router = createRouter({
       path: '/',
       redirect: '/login',  
     },
+
+    // {
+    //   path: '/',
+    //   name: 'home',
+    //   component: HomeView,
+    // },
     {
       path: '/about',
       name: 'about',
@@ -25,7 +31,7 @@ const router = createRouter({
       component: RegisterView,
     },
     {
-      path: '/search',
+      path: '/',
       name: 'search',
       component: SearchView,
 
