@@ -35,7 +35,7 @@
   
         try {
         
-          this.$router.push('/home');
+          this.$router.push('/search');
         } catch (error) {
           this.errorMessage = 'Erreur de connexion. Veuillez vérifier vos informations.';
         } finally {

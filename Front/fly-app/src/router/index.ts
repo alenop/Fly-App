@@ -13,24 +13,13 @@ const router = createRouter({
       path: '/',
       redirect: '/login',  
     },
-
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: HomeView,
-    // },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
-    },
     {
       path: '/register',
       name: 'register',
       component: RegisterView,
     },
     {
-      path: '/',
+      path: '/search',
       name: 'search',
       component: SearchView,
     },
@@ -39,11 +28,6 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login,
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: HomeView,
     },
   ],
 });
