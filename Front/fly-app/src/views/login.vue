@@ -1,3 +1,5 @@
+<head>
+</head>
 <template>
     <div>
       <h2>Connexion</h2>
@@ -10,7 +12,7 @@
           <label for="password">Mot de passe</label>
           <input type="password" v-model="password" required />
         </div>
-        <button type="submit" :disabled="loading">Se connecter</button>
+       <div class="se connecter"><button type="submit" :disabled="loading" style="position: relative; top: 20px;">Se connecter</button></div>
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
       </form>
     </div>
@@ -32,11 +34,8 @@
         this.errorMessage = '';
   
         try {
-          // Ici tu appelles ton API pour la connexion
-          // Exemple fictif : await axios.post('/api/login', { email: this.email, password: this.password });
-  
-          // Si la connexion réussit, redirige vers la page principale
-          this.$router.push('/');
+        
+          this.$router.push('/home');
         } catch (error) {
           this.errorMessage = 'Erreur de connexion. Veuillez vérifier vos informations.';
         } finally {
@@ -46,10 +45,4 @@
     },
   };
   </script>
-  
-  <style scoped>
-  .error {
-    color: red;
-  }
-  </style>
   
