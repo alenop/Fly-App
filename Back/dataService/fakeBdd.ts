@@ -1,4 +1,4 @@
-import { User } from "../model/User"
+import { User } from "../models/User"
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 export class FakeBdd {
