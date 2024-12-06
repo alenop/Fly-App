@@ -1,9 +1,7 @@
 import { Router, Request, Response } from 'express';
-import {FakeBdd} from '../../dataService/fakeBdd';
 import { User } from '../../models/User';
 import {UserController} from '../../controllers/userController';
 const router = Router();
-const database = new FakeBdd();
 const controller = new UserController();
 router.get('/', (req: Request, res: Response) => {
   res.json({ message: 'List of users' });
