@@ -14,13 +14,15 @@ router.post('/users', (req: Request, res: Response) => {
 
 router.post('/login',(req: Request, res: Response) => {
     const { username, password } = req.body;
-    res.json({message:database.check(username,password),user:database.get(password)});
+    res.json({message:database.check(username,password)});
 })
 
 router.post('/sign',(req: Request, res: Response) => {
     const { username,mail, password } = req.body;
     console.log(req.body);
-    database.create(new User(username,mail),password);
+    if(!database.create(new User(username,mail,password))){
+        res.json({message:"all is not ok account already create before"});
+    }
     res.json({message:"all is ok"});
 })
 
