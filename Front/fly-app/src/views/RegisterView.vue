@@ -2,7 +2,6 @@
 
 <template>
   <div class="register">
-    <Menu />
     <h1>Inscription</h1>
     <div>
       <form @submit.prevent="sign">

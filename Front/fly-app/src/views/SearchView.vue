@@ -1,5 +1,6 @@
 <template>
   <div class="search flex column">
+    <Menu />
     <h1>Accueil</h1>
     <div class="flex row">
       <div class="flew column">
@@ -39,3 +40,14 @@
   /* align-items: center; */
 }
 </style>
+
+<script language="ts">
+import Menu from '../components/Menu.vue'
+export default {
+  data() {},
+  components: {
+    Menu,
+  },
+  methods: {},
+};
+</script>
