@@ -27,7 +27,41 @@
     </div>
 
     <div class="flex column left flights">                 <!-- flight list-->
-      <div class="flex row flight">
+      <div v-for="vol in vols" class="flex row flight">
+        <div class="flex column">
+          <h1>Vol n° {{ vol.id }} - {{ vol.codeDeparture }}-{{ vol.codeArrival }}</h1>
+          <h2>Départ : {{ vol.cityDeparture }}, {{ vol.countryDeparture }} ({{ vol.codeDeparture }})</h2>
+          <h2>Arrivée : {{ vol.cityArrival }}, {{ vol.countryArrival }} ({{ vol.codeArrival }})</h2>
+          <h4>Durée : {{ vol.duration }}h</h4>
+          <h4>Places disponibles : {{ vol.seatavailable }}/{{ vol.seat }}</h4>
+          <h4>Prix : {{ vol.price }}€</h4>
+        </div>
+        <div class="flex column flightinput">
+          <div class="flex row">
+            <p>Nombre de bagages (100€/bagages) : </p>
+            <select>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <div class="flex row">
+            <p>Date :</p>
+            <input/>
+          </div>
+          <button class="reservationbutton">Réserver une place</button>
+        </div>
+      </div>
+
+      <!-- <div class="flex row flight">
         <div class="flex column">
           <h1>Vol n° 12345 - CDG-JFK</h1>
           <h2>Départ : Paris, France (CDG)</h2>
@@ -59,9 +93,9 @@
           </div>
           <button class="reservationbutton">Réserver une place</button>
         </div>
-      </div>
+      </div> -->
 
-      <div class="flex row flight">
+      <!-- <div class="flex row flight">
         <div class="flex column">
           <h1>Vol n° 14785 - CDG-BTW</h1>
           <h2>Départ : Paris, France (CDG)</h2>
@@ -93,9 +127,9 @@
           </div>
           <button class="reservationbutton">Réserver une place</button>
         </div>
-      </div>
+      </div> -->
 
-      <div class="flex row flight">
+      <!-- <div class="flex row flight">
         <div class="flex column">
           <h1>Vol n° 85236 - BTW-JFK</h1>
           <h2>Départ : Boston, États-Unis (BTW)</h2>
@@ -127,7 +161,7 @@
           </div>
           <button class="reservationbutton">Réserver une place</button>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -189,16 +223,6 @@
   row-gap: 5vh;
  }
 
- button {
-  border: none;
-  border-radius: 15px;
-  background-color: #4444FF;
-  color: white;
-  width: 12vw;
-  height: 4vh;
-  font-family: Georgia, 'Times New Roman', Times, serif
- }
-
  h1 {
   text-decoration: underline;
   font-weight: 200;
@@ -226,7 +250,51 @@
 <script language="ts">
 import Menu from '../components/Menu.vue'
 export default {
-  data() {},
+  data() {
+    return {
+      vols: [
+        {
+          id: '12345',
+          codeDeparture: 'CDG',
+          cityDeparture: 'Paris',
+          countryDeparture: 'France',
+          codeArrival: 'JFK',
+          cityArrival: 'New-York',
+          countryArrival: 'États-Unis',
+          duration: '7',
+          seat: '1000',
+          seatavailable: '700',
+          price: '1000',
+        },
+        {
+          id: '41275',
+          codeDeparture: 'CDG',
+          cityDeparture: 'Paris',
+          countryDeparture: 'France',
+          codeArrival: 'BTW',
+          cityArrival: 'Boston',
+          countryArrival: 'États-Unis',
+          duration: '8',
+          seat: '700',
+          seatavailable: '600',
+          price: '700',
+        },
+        {
+          id: '94315',
+          codeDeparture: 'BTW',
+          cityDeparture: 'Boston',
+          countryDeparture: 'États-Unis',
+          codeArrival: 'JFK',
+          cityArrival: 'New-York',
+          countryArrival: 'États-Unis',
+          duration: '1',
+          seat: '300',
+          seatavailable: '37',
+          price: '300',
+        }
+      ]
+    }
+  },
   components: {
     Menu,
   },
