@@ -1,5 +1,8 @@
+
+
 <template>
   <div class="register">
+    <Menu />
     <h1>Inscription</h1>
     <div>
       <form @submit.prevent="sign">
@@ -35,9 +38,11 @@ p {
   margin-top: 2vh;
 }
 </style>
+
 <script language="ts">
 import router from '@/router';
 import axios from 'axios';
+import Menu from '../components/Menu.vue'
 export default {
   data() {
     return {

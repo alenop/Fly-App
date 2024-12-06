@@ -13,6 +13,10 @@ header {
   max-height: 100vh;
 }
 
+body {
+  padding: 0;
+}
+
 .logo {
   display: block;
   margin: 0 auto 2rem;
