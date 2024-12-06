@@ -7,11 +7,11 @@ private database:{[key:string]:any} = {
 
 }
     async createObject(obj:any,uuid:string,type:string){
-        if(this.database.type){
-            this.database.type[uuid]=obj;
+        if(this.database[type]){
+            this.database[type][uuid]=obj;
         }else {
-            this.database.type={};
-            this.database.type[uuid]=obj;
+            this.database[type]={};
+            this.database[type][uuid]=obj;
         }
     }
 
