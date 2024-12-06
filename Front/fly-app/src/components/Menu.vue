@@ -1,12 +1,21 @@
-<script setup lang="ts">
-
+<script lang="ts">
+  export default {
+    data() {},
+    components: {
+    },
+    methods: {
+      toAccueil() {
+        this.$router.push("/");
+      }
+    },
+  };
 </script>
 
 <template>
   <div>
     <header class="menu">
-      <img class="logo" src="../assets/logo_plane.png" alt="">
-      <h1>Fly APP</h1>
+      <img @click="toAccueil" class="logo" src="../assets/logo_plane.png" alt="">
+      <h1 @click="toAccueil">Fly APP</h1>
     </header>
   </div>
 </template>
@@ -17,7 +26,7 @@
   background-color: #4444FF;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100vw;
   color: white;
 }
