@@ -1,5 +1,8 @@
+
+
 <template>
   <div class="register">
+    <Menu />
     <h1>Inscription</h1>
     <div>
       <form>
@@ -32,10 +35,12 @@ p {
   margin-top: 2vh;
 }
 </style>
+
 <script setup lang="ts">
 import axios from 'axios';
+import Menu from '../components/Menu.vue'
 async function sign(){
-  console.log(await axios.get('http://10.8.95.159:3000/user'));
+  console.log(await axios.get('http://localhost:3000/user'));
   //axios.post('');
 }
 </script>

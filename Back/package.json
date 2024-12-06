@@ -5,5 +5,9 @@
   },
   "scripts": {
     "dev": "npx ts-node-dev src/server.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1"
   }
 }
