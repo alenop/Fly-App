@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import {FakeBdd} from '../../dataService/fakeBdd';
-import { User } from '../../model/User';
+import { User } from '../../models/User';
 const router = Router();
 const database = new FakeBdd();
 router.get('/', (req: Request, res: Response) => {
