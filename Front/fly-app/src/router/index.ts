@@ -3,9 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import SearchView from '@/views/SearchView.vue'
-import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/login.vue';
-import HomeView from '../views/HomeView.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,7 +33,9 @@ const router = createRouter({
       path: '/',
       name: 'search',
       component: SearchView,
-
+    },
+    
+    { 
       path: '/login',
       name: 'login',
       component: Login,
