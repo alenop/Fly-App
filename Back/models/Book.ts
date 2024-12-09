@@ -1,5 +1,5 @@
 export class Book{
-    id:number;
+    id:number | string;
     flightId:number;
     userId:number;
     date:Date;

@@ -14,11 +14,11 @@ export class BookController{
         book.userId = userId;
         book.date = book.date;
         book.bags = book.bags;
-        this.bdd.bookFlight(book, uuid);
+        this.bdd.createObject(book, uuid,"book");
     }
 
     getAllBooks(){
-
+        this.bdd.getAllObject("book");
     }
     getBook(){
 
