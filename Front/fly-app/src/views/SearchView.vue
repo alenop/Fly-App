@@ -7,7 +7,6 @@
         <div class="flew column">
           <p>Aéroport de départ:</p>
           <select>
-            <option> </option>
             <option>CDG</option>
             <option>JFK</option>
             <option>DTW</option>
@@ -16,7 +15,6 @@
         <div class="flew column">
           <p>Aéroport d'arrivée :</p>
           <select>
-            <option> </option>
             <option>CDG</option>
             <option>JFK</option>
             <option>DTW</option>
@@ -36,132 +34,33 @@
           <h4>Places disponibles : {{ vol.seatavailable }}/{{ vol.seat }}</h4>
           <h4>Prix : {{ vol.price }}€</h4>
         </div>
-        <div class="flex column flightinput">
-          <div class="flex row">
-            <p>Nombre de bagages (100€/bagages) : </p>
-            <select>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-            </select>
-          </div>
-          <div class="flex row">
-            <p>Date :</p>
-            <input/>
-          </div>
-          <button class="reservationbutton">Réserver une place</button>
+        <div>
+          <form @submit.prevent="reserve(vol)" class="flex column flightinput">
+            <div class="flex row">
+              <p>Nombre de bagages (100€/bagages) : </p>
+              <select v-model="reserveluggage">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select>
+            </div>
+            <div class="flex row">
+              <p>Date :</p>
+              <input type="date" id="date" v-model="reservedate">
+            </div>
+            <h4>Prix total : {{ calculerPrixTotal(vol) }}€</h4>
+            <button class="reservationbutton">Réserver une place</button>
+        </form>
         </div>
       </div>
-
-      <!-- <div class="flex row flight">
-        <div class="flex column">
-          <h1>Vol n° 12345 - CDG-JFK</h1>
-          <h2>Départ : Paris, France (CDG)</h2>
-          <h2>Arrivée : New-York, États-Unis (JFK)</h2>
-          <h4>Durée : 7h</h4>
-          <h4>Places disponibles : 880/1000</h4>
-          <h4>Prix : 1000€</h4>
-        </div>
-        <div class="flex column flightinput">
-          <div class="flex row">
-            <p>Nombre de bagages (100€/bagages) : </p>
-            <select>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-            </select>
-          </div>
-          <div class="flex row">
-            <p>Date :</p>
-            <input/>
-          </div>
-          <button class="reservationbutton">Réserver une place</button>
-        </div>
-      </div> -->
-
-      <!-- <div class="flex row flight">
-        <div class="flex column">
-          <h1>Vol n° 14785 - CDG-BTW</h1>
-          <h2>Départ : Paris, France (CDG)</h2>
-          <h2>Arrivée : Boston, États-Unis (BTW)</h2>
-          <h4>Durée : 8h</h4>
-          <h4>Places disponibles : 700/700</h4>
-          <h4>Prix : 700€</h4>
-        </div>
-        <div class="flex column flightinput">
-          <div class="flex row">
-            <p>Nombre de bagages (100€/bagages) : </p>
-            <select>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-            </select>
-          </div>
-          <div class="flex row">
-            <p>Date :</p>
-            <input/>
-          </div>
-          <button class="reservationbutton">Réserver une place</button>
-        </div>
-      </div> -->
-
-      <!-- <div class="flex row flight">
-        <div class="flex column">
-          <h1>Vol n° 85236 - BTW-JFK</h1>
-          <h2>Départ : Boston, États-Unis (BTW)</h2>
-          <h2>Arrivée : New-York, États-Unis (JFK)</h2>
-          <h4>Durée : 1h</h4>
-          <h4>Places disponibles : 250/300</h4>
-          <h4>Prix : 300€</h4>
-        </div>
-        <div class="flex column flightinput">
-          <div class="flex row">
-            <p>Nombre de bagages (100€/bagages) : </p>
-            <select>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-            </select>
-          </div>
-          <div class="flex row">
-            <p>Date :</p>
-            <input/>
-          </div>
-          <button class="reservationbutton">Réserver une place</button>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -249,6 +148,7 @@
 
 <script language="ts">
 import Menu from '../components/Menu.vue'
+
 export default {
   data() {
     return {
@@ -292,12 +192,23 @@ export default {
           seatavailable: '37',
           price: '300',
         }
-      ]
+      ],
+      reserveluggage: '0',
+      reservedate: new Date().toISOString().substr(0, 10),
     }
   },
   components: {
     Menu,
   },
-  methods: {},
+  methods: {
+    reserve(vol) {
+      const totalprice = this.calculerPrixTotal(vol);
+      alert("Merci pour votre reservation ! \nNombres de baggages : " + this.reserveluggage + "\nDate de réservation : " + this.reservedate + "\nPrix total : " + totalprice);
+    },
+    calculerPrixTotal(vol) {
+      const luggageprice = parseInt(this.reserveluggage) * 100;
+      return parseInt(vol.price) + luggageprice;
+    },
+  },
 };
 </script>
