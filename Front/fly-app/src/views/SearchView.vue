@@ -203,7 +203,7 @@ export default {
   methods: {
     reserve(vol) {
       const totalprice = this.calculerPrixTotal(vol);
-      alert("Merci pour votre reservation ! \nNombres de baggages : " + this.reserveluggage + "\nDate de réservation : " + this.reservedate + "\nPrix total : " + totalprice + "€");
+      alert("Merci pour votre reservation ! \nNombres de bagages : " + this.reserveluggage + "\nDate de réservation : " + this.reservedate + "\nPrix total : " + totalprice + "€");
     },
     calculerPrixTotal(vol) {
       const luggageprice = parseInt(this.reserveluggage) * 100;
