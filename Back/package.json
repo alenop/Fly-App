@@ -4,7 +4,8 @@
     "express": "^4.21.1"
   },
   "scripts": {
-    "dev": "npx ts-node-dev src/server.ts"
+    "dev": "npx ts-node-dev src/server.ts",
+    "init": "npx ts-node-dev ./dataService/BDD/init-db.ts"
   },
   "devDependencies": {
     "@types/express": "^5.0.0"
