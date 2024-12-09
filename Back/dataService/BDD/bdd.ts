@@ -1,3 +1,5 @@
 export class BDD {
-    private construct
+    private construct(){
+        
+    }
 }
