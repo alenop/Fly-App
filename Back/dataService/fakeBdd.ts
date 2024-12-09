@@ -1,39 +1,35 @@
 import { User } from "../models/User"
 
 import {BDD} from "./Interface/BDD";
+export class FakeBdd implements BDD{
 
-const database:{[key:string]:any} = {
+private database:{[key:string]:any} = {
 
 }
-
-export class FakeBdd implements BDD {
-
-    
-    public static async createObject(obj:any,uuid:string,type:string){
-        if(database[type]){
-            database[type][uuid]=obj;
+    async createObject(obj:any,uuid:string,type:string){
+        if(this.database[type]){
+            this.database[type][uuid]=obj;
         }else {
-            database[type]={};
-            database[type][uuid]=obj;
+            this.database[type]={};
+            this.database[type][uuid]=obj;
         }
     }
 
-    public static getAllObject(type:string){
-        
-        return database[type];
+    getAllObject(type:string){
+        return this.database[type];
     }
 
-    public static async createUser(user:User,uuid:string){
-        database['user'][uuid]=user;
+    async createUser(user:User,uuid:string){
+        this.database[uuid]=user;
     }
-    public static getAll(){
-        return database;
+    getAll(){
+        return this.database;
     }
-    public static getUserByUuid(uuid:string){
-        return database['user'][uuid];
+    getByUuid(uuid:string){
+        return this.database[uuid];
     }
 
-    public static delete(uuid:string){
+    delete(uuid:string){
 
     }
 

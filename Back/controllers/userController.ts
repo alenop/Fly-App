@@ -4,6 +4,8 @@ import { User } from '../models/User';
 import { FakeBdd } from '../dataService/fakeBdd';
 export class UserController {
 
+    private db = new FakeBdd();
+
     async createUser(user:User){
         if(!await this.check(user.username,user.password)){
             return false;
@@ -11,7 +13,7 @@ export class UserController {
         const uuid = uuidv4();
         user.id = uuid;
         user.password = await this.hashPassword(user.password);
-        FakeBdd.createUser(user,uuid);
+        this.db.createUser(user,uuid);
         return true;
     }
 
@@ -24,7 +26,7 @@ export class UserController {
     }
 
     async check(username:string,password:string){
-        for (const i of Object.entries(FakeBdd.getAll())){
+        for (const i of Object.entries(this.db.getAll())){
             if (((i[1].username === username) || i[1].mail === username) && await this.verifyPassword(password,i[1].password)){
                 return i[1];
             }
