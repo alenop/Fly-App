@@ -1,10 +1,10 @@
 
 
 <template>
-  <div class="register">
+  <div class="register body">
     <h1 style="position: relative; left: 120px;">Inscription</h1>
-    <div>
-      <form @submit.prevent="sign">
+    <div class="registeritem">
+      <form class="registerform" @submit.prevent="sign">
         <p for="">Nom d'utilisateur : </p></br>
         <input type="text" v-model="username" placeholder="Entrez votre nom d'utilisateur" />
         
@@ -27,15 +27,7 @@
 
 <style>
 
-body{
-    background-color: white; 
-    display:flex; 
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-
-}
-form {
+.registerform {
   display: flex;
   flex-direction: column; 
   align-items: center;   
@@ -54,10 +46,12 @@ form {
     position: absolute; 
     right: 550px;
     top: 110px; 
+    color: white;
+ font-weight: bold;
 }
 
 
-input, button { 
+.registeritem input, .registeritem button { 
   margin-bottom: 20px;  /* Espacement entre les champs */
   padding: 10px;        /* Espacement interne des champs */
   width: 100%;          /* Largeur à 100% pour que les champs prennent toute la largeur */
@@ -66,17 +60,11 @@ input, button {
  
 }
 
-button {
+.registeritem button {
   background-color: #4CAF50; 
   color: white;            
   cursor: pointer;         
 } 
-p,
-label,
-h1{
-color: white;
- font-weight: bold;
-}
 </style>
 
 <script language="ts">
