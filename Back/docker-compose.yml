@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Set a root password for MySQL
+      MYSQL_DATABASE: my_flight_database # Set the default database to be created
+      MYSQL_USER: user  # Set MySQL user
+      MYSQL_PASSWORD: userpassword  # Set MySQL user's password
+    ports:
+      - "3306:3306"  # Expose MySQL on port 3306
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persist data in Docker volumes
+
+
+volumes:
+  mysql-data:
