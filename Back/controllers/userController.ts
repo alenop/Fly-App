@@ -6,13 +6,13 @@ export class UserController {
     private bdd = new ClientBdd();
 
     async createUser(user:User){
-        if(!await this.check(user.username,user.password)){
+        if(await this.check(user.username,user.password)){
             return false;
         }
         const uuid = uuidv4();
         user.id = uuid;
         user.password = await this.hashPassword(user.password);
-        this.bdd.insertClient(user);
+        await this.bdd.insertClient(user);
         return true;
     }
 
@@ -31,9 +31,11 @@ export class UserController {
     async check(username:string,password:string){
         for (const i of await this.bdd.getClients()){
             if (i.username === username && await this.verifyPassword(password,i.password)){
+                console.log("i:",i);
                 return i;
             }
         }
+        console.log("la ?");
         return false;
     }
 

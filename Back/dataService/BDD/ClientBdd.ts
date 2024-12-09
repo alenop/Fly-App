@@ -18,7 +18,7 @@ export class ClientBdd {
     public async getClients() {
         const connection = await createConnection();
         const result = await connection.execute(`SELECT * FROM Client`);
-        console.log('Clients:', result);
+        console.log('Clients:', result[0]);
         await connection.end();
         return result[0] as User[];
     }
