@@ -35,7 +35,7 @@
           <h4>Prix : {{ vol.price }}€</h4>
         </div>
         <div>
-          <form @submit.prevent="reserve" class="flex column flightinput">
+          <form @submit.prevent="reserve(vol)" class="flex column flightinput">
             <div class="flex row">
               <p>Nombre de bagages (100€/bagages) : </p>
               <select v-model="reserveluggage">
@@ -56,6 +56,7 @@
               <p>Date :</p>
               <input type="date" id="date" v-model="reservedate">
             </div>
+            <h4>Prix total : {{ calculerPrixTotal(vol) }}€</h4>
             <button class="reservationbutton">Réserver une place</button>
         </form>
         </div>
@@ -200,8 +201,13 @@ export default {
     Menu,
   },
   methods: {
-    reserve() {
-      alert("Merci pour votre reservation ! \n Nombres de baggages : " + this.reserveluggage + " \nDate de réservation : " + this.reservedate);
+    reserve(vol) {
+      const totalprice = this.calculerPrixTotal(vol);
+      alert("Merci pour votre reservation ! \nNombres de baggages : " + this.reserveluggage + "\nDate de réservation : " + this.reservedate + "\nPrix total : " + totalprice);
+    },
+    calculerPrixTotal(vol) {
+      const luggageprice = parseInt(this.reserveluggage) * 100;
+      return parseInt(vol.price) + luggageprice;
     },
   },
 };
