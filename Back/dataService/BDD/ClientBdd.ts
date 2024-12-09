@@ -1,14 +1,14 @@
 // ClientBdd.ts
 import { createConnection } from "./bdd";
-
+import { User } from "../../models/User";
 export class ClientBdd {
 
     // Insert a new client into the "Client" table
-    public async insertClient(username: string, mail: string, password: string) {
+    public async insertClient(user:User) {
         const connection = await createConnection();
         const [result] = await connection.execute(
             `INSERT INTO Client (username, mail, password) VALUES (?, ?, ?)`,
-            [username, mail, password]
+            [user.username, user.mail, user.password]
         );
         console.log('Client inserted:', result);
         await connection.end();
@@ -17,10 +17,27 @@ export class ClientBdd {
     // Get all clients from the "Client" table
     public async getClients() {
         const connection = await createConnection();
-        const [rows] = await connection.execute(`SELECT * FROM Client`);
-        console.log('Clients:', rows);
+        const result = await connection.execute(`SELECT * FROM Client`);
+        console.log('Clients:', result);
         await connection.end();
-        return rows;
+        return result[0] as User[];
+    }
+
+    public async getClientbyId(id:number) {
+        const connection = await createConnection();
+        const result = await connection.execute(`SELECT * FROM Client WHERE id = ?`, [id]);
+        console.log('Clients:', result);
+        const users = result[0] as User[];
+        await connection.end();
+        return users[0] as User;
+    }
+    public async getClientbyUsername(username:string) {
+        const connection = await createConnection();
+        const result = await connection.execute(`SELECT * FROM Client WHERE id = ?`, [username]);
+        console.log('Clients:', result);
+        const users = result[0] as User[];
+        await connection.end();
+        return users[0] as User;
     }
 
     // Delete a client from the "Client" table by id
@@ -32,24 +49,24 @@ export class ClientBdd {
     }
 
     // Update client details in the "Client" table
-    public async updateClient(id: number, username?: string, mail?: string, password?: string) {
+    public async updateClient(user: User) {
         const connection = await createConnection();
 
         const updates: string[] = [];
         const params: any[] = [];
-        
-        // Build the update query dynamically based on the provided fields
-        if (username) {
+
+        // Dynamically add properties to be updated based on the user object
+        if (user.username) {
             updates.push("username = ?");
-            params.push(username);
+            params.push(user.username);
         }
-        if (mail) {
+        if (user.mail) {
             updates.push("mail = ?");
-            params.push(mail);
+            params.push(user.mail);
         }
-        if (password) {
+        if (user.password) {
             updates.push("password = ?");
-            params.push(password);
+            params.push(user.password);
         }
 
         if (updates.length === 0) {
@@ -57,8 +74,8 @@ export class ClientBdd {
             return;
         }
 
-        // Append the client id at the end of the parameters
-        params.push(id);
+        // Append the user id at the end of the parameters
+        params.push(user.id);
 
         // Execute the update query
         const query = `UPDATE Client SET ${updates.join(", ")} WHERE id = ?`;
