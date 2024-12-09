@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import {FakeBdd} from '../../dataService/fakeBdd';
-import { Book } from '../../models/Book';
+import { bookFlight, deleteBooking, getUserBookings } from '../../controllers/bookController';
+
 const router = Router();
 const database = new FakeBdd();
 
