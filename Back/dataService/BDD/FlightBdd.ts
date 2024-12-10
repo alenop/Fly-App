@@ -1,3 +1,5 @@
+import { Flight } from "../../models/Flight";
+import {RowDataPacket,FieldPacket} from 'mysql2';
 import { createConnection } from "./bdd";
 export class FlightBdd {
     
@@ -9,6 +11,14 @@ export class FlightBdd {
         );
         console.log('Vol inserted:', result);
         await connection.end();
+    };
+
+    public async getFlight (id:number) {
+        const connection = await createConnection();
+        const [rows]:[RowDataPacket[], FieldPacket[]] = await connection.execute(`SELECT * FROM Vol WHERE id = ?`,[id]);
+        console.log('Vols:', rows);
+        await connection.end();
+        return rows[0];
     };
 
     public async getFlights () {
