@@ -21,9 +21,9 @@ export class BookController{
         this.bdd.getAllObject("book");
     }
     getBook(){
-
+        this.bdd.getByUuid("book");
     }
     deleteBook(){
-
+        this.bdd.delete("book");
     }
 }
