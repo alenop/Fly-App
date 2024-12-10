@@ -1,6 +1,9 @@
 <template>
   <div class="page flex column">
     <Menu />
+    <div v-if="ifVisible" class="blur">
+      <ReserveForm  @close="ifVisible = false" :passengers="reservepassengers" :flight="reserveFlight" :date="reservedate" :luggages="reserveluggage"/>
+    </div>
     <div class="flex column center search">               <!-- search bar-->       
       <h1>Accueil</h1>
       <div class="flex row search-item">
@@ -43,22 +46,14 @@
           <h4>Prix : {{ calculatePriceCurrency(vol) }}{{ reservecurrency.symbol }}</h4>
         </div>
         <div>
-          <form @submit.prevent="reserve(vol)" class="flex column flightinput">
+          <form @submit.prevent="showNextForm(vol)" class="flex column flightinput">
             <div class="flex row minispace">
               <p>Nombre de bagages ({{ calculateLuggageCurrency() }}{{ reservecurrency.symbol }}/bagages) : </p>
-              <select v-model="reserveluggage">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </select>
+              <input type="number" v-model="reserveluggage" min="0" max="10"/>
+            </div>
+            <div class="flex row minispace">
+              <p>Nombres de personnes : </p>
+              <input type="number" v-model="reservepassengers" min="1" max="100"/>
             </div>
             <div class="flex row minispace">
               <p>Date :</p>
@@ -66,7 +61,7 @@
             </div>
             <div class="flex row minispace">
               <h4>Prix total : {{ calculatePriceTotal(vol) }}{{ reservecurrency.symbol }}</h4>
-              <button class="reservationbutton">Réserver une place</button>
+              <button class="reservationbutton">Suivant</button>
             </div>
         </form>
         </div>
@@ -75,19 +70,7 @@
   </div>
 </template>
 
-<style>
-
-.flex {
-  display: flex;
-}
-
-.row {
-  flex-direction: row;
-}
-
-.column {
-  flex-direction: column;
-}
+<style> 
 
 .center {
   align-items: center;
@@ -132,8 +115,18 @@
   row-gap: 5vh;
  }
 
- .minispace {
-  gap: 2vw;
+ .blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(42, 48, 134, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  z-index: 1000;
  }
 
  h1 {
@@ -161,6 +154,7 @@
 </style>
 
 <script language="ts">
+import ReserveForm from '@/components/ReserveForm.vue';
 import Menu from '../components/Menu.vue'
 
 export default {
@@ -240,21 +234,29 @@ export default {
         }
       ],
       reserveluggage: '0',
+      reservepassengers: '1',
       reservedate: new Date().toISOString().substr(0, 10),
       reservecurrency: { code: 'EUR', name: 'Euros', rate: '1', symbol: '€'},
+      reserveFlight: '',
+      ifVisible: false,
     }
   },
   components: {
     Menu,
+    ReserveForm,
   },
   methods: {
+    showNextForm(vol) {
+      this.ifVisible = true;
+      this.reserveFlight = vol;
+    },
     reserve(vol) {
       const totalprice = this.calculatePriceTotal(vol);
       alert("Merci pour votre reservation pour le vol Départ : " + vol.cityDeparture + " (" + vol.codeDeparture + ") - " + vol.cityArrival + " (" + vol.codeArrival + ")" + " ! \nNombres de bagages : " + this.reserveluggage + "\nDate de réservation : " + this.reservedate + "\nPrix total : " + totalprice + this.reservecurrency.symbol);
     },
     calculatePriceTotal(vol) {
       const luggageprice = parseInt(this.reserveluggage) * this.calculateLuggageCurrency();
-      return this.calculatePriceCurrency(vol) + luggageprice;
+      return (this.calculatePriceCurrency(vol) * this.reservepassengers)+luggageprice;
     },
     calculateLuggageCurrency() {
       return parseInt(parseFloat(this.reservecurrency.rate) * 100);

@@ -42,3 +42,31 @@ button {
   font-weight: bold;
  }
 
+ .flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.tinyspace {
+  gap: 2vh;
+}
+
+.minispace {
+  gap: 2vw;
+ }
+
+ .space {
+  gap: 5vw;
+ }
+ 
+ .bigspace {
+  gap: 10vw; 
+ }
+
