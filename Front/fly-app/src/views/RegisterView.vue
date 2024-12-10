@@ -70,7 +70,6 @@
 <script language="ts">
 import router from '@/router';
 import axios from 'axios';
-import Menu from '../components/Menu.vue'
 export default {
   data() {
     return {
