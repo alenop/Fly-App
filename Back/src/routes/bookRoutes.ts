@@ -1,20 +1,20 @@
 import { Router, Request, Response } from 'express';
-import {FakeBdd} from '../../dataService/fakeBdd';
 import { BookController } from '../../controllers/bookController';
+import { Book } from '../../models/Book';
 
 const bookController = new BookController;
 const router = Router();
-const database = new FakeBdd();
 
 // Book a flight
 router.post('/', (req: Request, res: Response) => {
-    const { flightId, userId, date, bags } = req.body;
+    const { flightId, userId, date, bags,billets } = req.body;
+    bookController.bookFlight(new Book(flightId,userId,date,bags),100,billets);//TODO calculate price
     res.json({ message: 'flight booked', book: { flightId, userId, date, bags } });
   });
 
 //get all books
 router.get('/books/', (req: Request, res: Response) => {
-    res.json({ message: 'List of books' });
+    res.json({ message: bookController.getAllBooks() });
 });
 // Get book for a user
 router.get('/book/:userId', (req: Request, res: Response) => {
@@ -24,6 +24,6 @@ router.get('/book/:userId', (req: Request, res: Response) => {
 // Delete a book
 router.delete('/:id', (req: Request, res: Response) => {
     const { id } = req.body;
-    res.json({ message: 'flight booked', book: { id } });
+    res.json({ message: 'flight book cancelled', book: { id } });
   });
 export default router;
