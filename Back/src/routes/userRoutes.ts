@@ -7,22 +7,22 @@ router.get('/', (req: Request, res: Response) => {
   res.json({ message: 'List of users' });
 });
 
-router.post('/users', (req: Request, res: Response) => {
-  const { name, email } = req.body;
-  res.json({ message: 'User created', user: { name, email } });
+router.get('/users', (req: Request, res: Response) => {
+  res.json({ message: 'Users yeah', users:controller.getAll() });
 });
 
-router.post('/login',(req: Request, res: Response) => {
+router.post('/login',async (req: Request, res: Response) => {
     const { username, password } = req.body;
-    res.json({message:controller.check(username,password)});
+    res.json({message:await controller.check(username,password)});
 })
 
-router.post('/sign',(req: Request, res: Response) => {
+router.post('/sign',async (req: Request, res: Response) => {
     const { username,mail, password } = req.body;
-    if(!controller.createUser(new User(username,mail,password))){
-        res.json({message:"all is not ok account already create before"});
+    if(!await controller.createUser(new User(username,mail,password))){
+        res.json({message:"all is not ok account already created before"});
+    }else {
+      res.json({message:"all is ok"});
     }
-    res.json({message:"all is ok"});
 })
 
 export default router;

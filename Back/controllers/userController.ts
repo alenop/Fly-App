@@ -1,23 +1,31 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import { User } from '../models/User';
-import { FakeBdd } from '../dataService/fakeBdd';
+import {ClientBdd} from '../dataService/BDD/ClientBdd';
 export class UserController {
-    private bdd = new FakeBdd();
+    private bdd = new ClientBdd();
+
+    async getAll(){
+        return this.bdd.getClients();
+    }
 
     async createUser(user:User){
-        if(!await this.check(user.username,user.password)){
+        if(await this.check(user.username,user.password)){
             return false;
         }
         const uuid = uuidv4();
         user.id = uuid;
         user.password = await this.hashPassword(user.password);
-        this.bdd.createUser(user,uuid);
+        await this.bdd.insertClient(user);
         return true;
     }
 
-    getUser(){
+    getUserById(id:number){
+        return this.bdd.getClientbyId(id);
+    }
 
+    getUserByUsername(username:string){
+        return this.bdd.getClientbyUsername(username);
     }
 
     deleteUser(){
@@ -25,11 +33,13 @@ export class UserController {
     }
 
     async check(username:string,password:string){
-        for (const i of Object.entries(this.bdd.getAll())){
-            if (i[1].username === username && await this.verifyPassword(password,i[1].password)){
-                return i[1];
+        for (const i of await this.bdd.getClients()){
+            if (i.username === username && await this.verifyPassword(password,i.password)){
+                console.log("i:",i);
+                return i;
             }
         }
+        console.log("la ?");
         return false;
     }
 
