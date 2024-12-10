@@ -1,20 +1,20 @@
 import { Router, Request, Response } from 'express';
-import { BookController } from '../../controllers/bookController';
+import { MainController } from '../../controllers/mainController';
 import { Book } from '../../models/Book';
 
-const bookController = new BookController;
+const mainController = new MainController;
 const router = Router();
 
 // Book a flight
 router.post('/', (req: Request, res: Response) => {
     const { flightId, userId, date, bags,billets } = req.body;
-    bookController.bookFlight(new Book(flightId,userId,date,bags),100,billets);//TODO calculate price
+    mainController.bookFlight(new Book(flightId,userId,date,bags),billets);
     res.json({ message: 'flight booked', book: { flightId, userId, date, bags } });
   });
 
 //get all books
 router.get('/books/', (req: Request, res: Response) => {
-    res.json({ message: bookController.getAllBooks() });
+    res.json({ message: mainController.getBookController().getAllBooks() });
 });
 // Get book for a user
 router.get('/book/:userId', (req: Request, res: Response) => {
