@@ -5,6 +5,10 @@ import {ClientBdd} from '../dataService/BDD/ClientBdd';
 export class UserController {
     private bdd = new ClientBdd();
 
+    async getAll(){
+        return this.bdd.getClients();
+    }
+
     async createUser(user:User){
         if(await this.check(user.username,user.password)){
             return false;

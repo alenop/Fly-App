@@ -7,9 +7,8 @@ router.get('/', (req: Request, res: Response) => {
   res.json({ message: 'List of users' });
 });
 
-router.post('/users', (req: Request, res: Response) => {
-  const { name, email } = req.body;
-  res.json({ message: 'User created', user: { name, email } });
+router.get('/users', (req: Request, res: Response) => {
+  res.json({ message: 'Users yeah', users:controller.getAll() });
 });
 
 router.post('/login',async (req: Request, res: Response) => {

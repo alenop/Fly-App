@@ -1,12 +1,13 @@
 export class Book{
-    id:number;
+    id?:number | string;
     flightId:number;
     userId:number;
     date:Date;
-    constructor(id:number, flightId:number, userId:number, date:Date){
-        this.id=id;
+    bags:number
+    constructor(flightId:number, userId:number, date:Date, bags:number){
         this.flightId=flightId;
         this.userId=userId;
         this.date=date;
+        this.bags=bags;
     }
 }
