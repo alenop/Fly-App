@@ -17,6 +17,7 @@ const initDB = async () => {
         console.log("Connected to MySQL server!");
 
         // Ensure the database exists
+        await connection.query(`DROP DATABASE \`${process.env.DB_NAME}\``);
         await connection.query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB_NAME}\``);
         await connection.query(`USE \`${process.env.DB_NAME}\``);
         console.log(`Database "${process.env.DB_NAME}" is ready.`);
@@ -59,18 +60,33 @@ const initDB = async () => {
         `);
         console.log('Table "Client" is ready.');
 
-        // Create the "Reservation" table
+        // Create the "Commande" table
         await connection.query(`
-            CREATE TABLE IF NOT EXISTS Reservation (
+            CREATE TABLE IF NOT EXISTS Commande (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 id_vol INT NOT NULL,
                 id_client INT NOT NULL,
+                total_price INT NOT NULL,
+                id_billets JSON NOT NULL,
                 date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (id_vol) REFERENCES Vol(id) ON DELETE CASCADE ON UPDATE CASCADE,
                 FOREIGN KEY (id_client) REFERENCES Client(id) ON DELETE CASCADE ON UPDATE CASCADE
-            )
+        )
         `);
         console.log('Table "Reservation" is ready.');
+
+        // Create the "Billet" table
+        await connection.query(`
+            CREATE TABLE IF NOT EXISTS Billet (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nom VARCHAR(255) NOT NULL,
+                id_commande INT NOT NULL,
+                status VARCHAR(50) NOT NULL,
+                FOREIGN KEY (id_commande) REFERENCES Commande(id) ON DELETE CASCADE ON UPDATE CASCADE
+            )
+        `);
+
+        
 
         // Close the connection
         await connection.end();
