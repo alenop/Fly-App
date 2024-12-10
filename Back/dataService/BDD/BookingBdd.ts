@@ -2,7 +2,7 @@
 import { createConnection } from "./bdd";
 
 export class BookingBdd {
-    public tableName:"Commande"
+    public tableName:string="Commande"
     // Insert a new Booking into the "Booking" table
     public async insertBooking(id_vol: number, id_client: number,price:number,date:Date,billets:[]) {
         const connection = await createConnection();
