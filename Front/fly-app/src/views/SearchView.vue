@@ -85,9 +85,11 @@
 }
 
 .search {
-  margin-top: 5vh; 
-  margin-bottom: 10vh;
+  margin: 5vh 20vw 10vh 20vw;
   gap: 5vh;
+  color: white;
+  background-color:  #24248556;
+  border-radius: 2%;
 }
 
 .search-item {
@@ -97,6 +99,7 @@
 
 .flights {
   gap: 35px;
+  margin-bottom: 10vh;
 }
 
 .flight {
@@ -108,6 +111,8 @@
   max-width: 60vw;
   justify-content: space-around;
   padding: 3vh 2vw;
+  background-color: #2424858d;
+  color: white;
  }
 
  .flightinput {

@@ -31,7 +31,7 @@
 <style scoped>
 
 .centerForm {
-  background-color: #4444FF;
+  background-color: #5a68ab;
   width: 80vw;
   height: 60vh;
   color: white;

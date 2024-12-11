@@ -42,7 +42,7 @@
 .register{
     width: 400px;
     height: 600px;
-    background: #4444FF;
+    background: #5a68ab;
     position: absolute; 
     right: 550px;
     top: 110px; 

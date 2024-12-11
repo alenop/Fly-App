@@ -34,8 +34,8 @@ a,
 button {
   border: none;
   border-radius: 15px;
-  background-color: #4444FF;
-  color: white;
+  background-color: white;
+  color: #4444ff;
   width: 12vw;
   height: 4vh;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -70,9 +70,9 @@ button {
   gap: 10vw; 
  }
 
- /* body {
+ body {
   background-image: url("airport.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
- } */
+ }
