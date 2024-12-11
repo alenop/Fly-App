@@ -38,9 +38,9 @@
     <div class="flex column left flights">                 <!-- flight list-->
       <div v-for="vol in vols" class="flex row flight">
         <div class="flex column">
-          <h1>Vol n° {{ vol.nom }} - {{ vol.departureAirport }}-{{ vol.arrivee }}</h1>
-          <h2>Départ : {{ vol.cityDeparture }}, {{ vol.countryDeparture }} ({{ vol.codeDeparture }})</h2>
-          <h2>Arrivée : {{ vol.cityArrival }}, {{ vol.countryArrival }} ({{ vol.codeArrival }})</h2>
+          <h1>Vol n° {{ vol.nom }} - {{ vol.departureAirport.code }}-{{ vol.arrivalAirport.code }}</h1>
+          <h3>. Départ : {{ vol.departureAirport.nom }} - {{ vol.departureAirport.ville }}, {{ vol.departureAirport.pays }}</h3>
+          <h3>. Arrivée : {{ vol.arrivalAirport.nom }} - {{ vol.arrivalAirport.ville }}, {{ vol.arrivalAirport.pays }} ({{ vol.arrivalAirport.code }})</h3>
           <h4>Places disponibles : {{ vol.seatavailable }}/{{ vol.place }}</h4>
           <h4>Prix : {{ calculatePriceCurrency(vol) }}{{ reservecurrency.symbol }}</h4>
         </div>
@@ -105,7 +105,7 @@
   gap: 10px;
   border: outset 2px #4444FF;
   border-radius: 15px;
-  max-width: 55vw;
+  max-width: 60vw;
   justify-content: space-around;
   padding: 3vh 2vw;
  }
@@ -246,13 +246,26 @@ export default {
             console.log(response.data);
             console.log(vol.depart);
             vol.departureAirport = response.data.airportId;
-            console.log('Aéroport ajouté pour vol:', vol);
+            console.log('Aéroport de départ ajouté pour vol:', departureAirport);
           })
           .catch(error => {
             console.error('Erreur lors de la récupération de l\'aéroport:', error);
-          });
-        });
+          }
+        );
+        axios.get(`http://localhost:3000/airports/id/${vol.arrivee}`)
+          .then(response => {
+            console.log(response.data);
+            console.log(vol.depart);
+            vol.arrivalAirport = response.data.airportId;
+            console.log('Aéroport d arrivee ajouté pour vol:', arrivalAirport);
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération de l\'aéroport:', error);
+          }
+        );
       }
+      );
+    }
   },
 };
 </script>
