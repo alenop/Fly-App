@@ -1,6 +1,6 @@
 // AirportBdd.ts
 import { createConnection } from "./bdd";
-
+import { RowDataPacket,FieldPacket } from "mysql2";
 export class AirportBdd {
 
     // Insert a new airport into the "Airport" table
@@ -24,10 +24,11 @@ export class AirportBdd {
     }
     public async getAirportById(airport: number) {
         const connection = await createConnection();
-        const [rows] = await connection.execute(`SELECT * FROM Aeroport WHERE id = ?`, [airport]);
+        console.log(airport);
+        const [rows]:[RowDataPacket[], FieldPacket[]] = await connection.execute(`SELECT * FROM Aeroport WHERE id = ?`, [airport]);
         console.log('Airports:', rows);
         await connection.end();
-        return rows;
+        return rows[0];
     }
     // Delete an airport from the "Airport" table by id
     public async deleteAirport(id: number) {

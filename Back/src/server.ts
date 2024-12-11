@@ -21,7 +21,7 @@ app.use(cors());
 // Use the user routes
 app.use('/user', routerUser);
 
-//use flights routes
+// Use the flights routes
 app.use('/flights', routerFlights);
 
 //use airports routes
