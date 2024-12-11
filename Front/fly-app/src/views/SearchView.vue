@@ -233,7 +233,7 @@ export default {
         .then(response => {
           this.vols = response.data.flight;
           this.getAirports();
-          // console.log(this.vols);
+          //console.log(this.vols);
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des vols:', error);
@@ -241,8 +241,10 @@ export default {
     },
     getAirports() {
       this.vols.forEach((vol) => {
-        axios.get(`http://localhost:3000/airports/id/{vol.depart}`)
+        axios.get(`http://localhost:3000/airports/id/${vol.depart}`)
           .then(response => {
+            console.log(response.data);
+            console.log(vol.depart);
             vol.departureAirport = response.data.airport;
             console.log('Aéroport ajouté pour vol:', vol);
           })
