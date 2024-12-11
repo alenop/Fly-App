@@ -26,7 +26,7 @@ export class MainController {
             let adults=0;
             let children=0;
             for (const billet of billets){
-                if(((await this.billetBdd.getBillet(billet)) as Billet).status==="children"){
+                if((billet as Billet).status==="children"){
                     children++;
                 }else {
                     adults++;
