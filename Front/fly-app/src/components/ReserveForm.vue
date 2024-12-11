@@ -3,7 +3,7 @@
     <div class="flex column bigspace">
       <div class="flex column minispace">
         <h1>Formulaire de reservation</h1>
-        <h3>Vol n° {{ flight.id }} : {{ flight.codeDeparture }} -> {{ flight.codeArrival }}, le {{ date }}</h3>
+        <h3>Vol n° {{ flight.nom }} : {{ flight.departureAirport.code }} -> {{ flight.arrivalAirport.code }}, le {{ date }}</h3>
         <h5>Quantités de bagages : {{ luggages }}</h5>
         <h3>Passagers : {{ passengers }}</h3>
       </div>
