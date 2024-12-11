@@ -114,6 +114,7 @@ const submitPassengers = async () => {
     });
     console.log('Liste des passagers :', passengerList.value);
     alert('Les passagers ont été stockés avec succès !');
+    close();
   } catch (error) {
     console.error('Erreur lors de la soumission des passagers :', error);
   }
