@@ -38,7 +38,7 @@
     <div class="flex column left flights">                 <!-- flight list-->
       <div v-for="vol in vols" class="flex row flight">
         <div class="flex column">
-          <h1>Vol n° {{ vol.id }} - {{ vol.codeDeparture }}-{{ vol.codeArrival }}</h1>
+          <h1>Vol n° {{ vol.nom }} - {{ vol.codeDeparture }}-{{ vol.codeArrival }}</h1>
           <h2>Départ : {{ vol.cityDeparture }}, {{ vol.countryDeparture }} ({{ vol.codeDeparture }})</h2>
           <h2>Arrivée : {{ vol.cityArrival }}, {{ vol.countryArrival }} ({{ vol.codeArrival }})</h2>
           <h4>Durée : {{ vol.duration }}h</h4>
@@ -156,6 +156,7 @@
 <script language="ts">
 import ReserveForm from '@/components/ReserveForm.vue';
 import Menu from '../components/Menu.vue'
+import axios from 'axios';
 
 export default {
   data() {
@@ -192,47 +193,7 @@ export default {
           symbol: '$'
         },
       ],
-      vols: [
-        {
-          id: '12345',
-          codeDeparture: 'CDG',
-          cityDeparture: 'Paris',
-          countryDeparture: 'France',
-          codeArrival: 'JFK',
-          cityArrival: 'New-York',
-          countryArrival: 'États-Unis',
-          duration: '7',
-          seat: '1000',
-          seatavailable: '700',
-          price: '1000',
-        },
-        {
-          id: '41275',
-          codeDeparture: 'CDG',
-          cityDeparture: 'Paris',
-          countryDeparture: 'France',
-          codeArrival: 'BTW',
-          cityArrival: 'Boston',
-          countryArrival: 'États-Unis',
-          duration: '8',
-          seat: '700',
-          seatavailable: '600',
-          price: '700',
-        },
-        {
-          id: '94315',
-          codeDeparture: 'BTW',
-          cityDeparture: 'Boston',
-          countryDeparture: 'États-Unis',
-          codeArrival: 'JFK',
-          cityArrival: 'New-York',
-          countryArrival: 'États-Unis',
-          duration: '1',
-          seat: '300',
-          seatavailable: '37',
-          price: '300',
-        }
-      ],
+      vols: [],
       reserveluggage: '0',
       reservepassengers: '1',
       reservedate: new Date().toISOString().substr(0, 10),
@@ -244,6 +205,9 @@ export default {
   components: {
     Menu,
     ReserveForm,
+  },
+  mounted() {
+    this.getFlights();
   },
   methods: {
     showNextForm(vol) {
@@ -264,6 +228,16 @@ export default {
     calculatePriceCurrency(vol) {
       const rate = parseFloat(this.reservecurrency.rate);
       return parseInt(parseInt(vol.price) * rate);
+    },
+    getFlights() {
+      axios.get('http://localhost:3000/flights')
+        .then(response => {
+          this.vols = response.data;
+          console.log(this.vols);
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des vols:', error);
+        });
     }
   },
 };

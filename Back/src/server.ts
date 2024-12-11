@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import routerUser from './routes/userRoutes'; // Assuming you have userRoutes
+import routerFlights from './routes/flightRoutes'; // Assuming you have userRoutes
 import cors from 'cors';
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(cors());
 
 // Use the user routes
 app.use('/user', routerUser);
+
+app.use('/flights', routerFlights)
 
 // Define a simple route
 app.get('/', (req: Request, res: Response) => {
