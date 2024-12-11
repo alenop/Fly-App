@@ -205,8 +205,8 @@ export default {
     Menu,
     ReserveForm,
   },
-  mounted() {
-    this.getFlights();
+  async mounted() {
+    await this.getFlights();
   },
   methods: {
     showNextForm(vol) {
@@ -228,8 +228,8 @@ export default {
       const rate = parseFloat(this.reservecurrency.rate);
       return parseInt(parseInt(vol.prix) * rate);
     },
-    getFlights() {
-      axios.get('http://localhost:3000/flights')
+    async getFlights() {
+      await axios.get('http://localhost:3000/flights')
         .then(response => {
           this.vols = response.data.flights;
           //this.getAirports();
