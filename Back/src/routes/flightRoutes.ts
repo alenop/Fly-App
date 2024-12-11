@@ -5,6 +5,6 @@ import { FlightController } from '../../controllers/flightController'
 const router = Router();
 const flightController = new FlightController;
 
-router.get('/users', (req: Request, res: Response) => {
+router.get('/flights', (req: Request, res: Response) => {
     res.json({ message: 'Users yeah', users:flightController.getAllFlights() });
   });
