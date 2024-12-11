@@ -8,8 +8,9 @@ router.get('/', (req: Request, res: Response) => {
     res.json({ message: 'list of airport', airports:airportController.getAllAirports() });
   });
 
-  router.get('/id', (req: Request, res: Response) => {
-    res.json({ message: 'airport by id', airportId:airportController.getAirportById() });
+  router.get('/id/:airport', (req: Request, res: Response) => {
+    const airport = parseInt(req.params.airport);
+    res.json({ message: 'airport by id', airportId:airportController.getAirportById(airport) });
   });
 
   export default router;

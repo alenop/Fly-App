@@ -2,7 +2,11 @@ import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import routerUser from './routes/userRoutes'; // Assuming you have userRoutes
 import routerFlights from './routes/flightRoutes';
+<<<<<<< HEAD
 import routerAirports from './routes/airportRoutes';
+=======
+import routerAirports from './routes/airportRoutes'
+>>>>>>> 4cccfd29058f69d0e9e9a442068cd363bcc49622
 import cors from 'cors';
 dotenv.config();
 
