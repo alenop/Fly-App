@@ -6,9 +6,9 @@ const mainController = new MainController;
 const router = Router();
 
 // Book a flight
-router.post('/', (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
     const { flightId, userId, date, bags,billets } = req.body;
-    mainController.bookFlight(new Book(flightId,userId,date,bags),billets);
+    await mainController.bookFlight(new Book(flightId,userId,date,bags),billets);
     res.json({ message: 'flight booked', book: { flightId, userId, date, bags } });
   });
 

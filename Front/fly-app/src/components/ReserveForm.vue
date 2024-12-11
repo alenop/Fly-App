@@ -57,48 +57,65 @@
 }
 
 </style>
+<script lang="ts" setup>
+import { ref, reactive, onMounted } from 'vue';
+import axios from 'axios';
+import { useUserStore } from '@/stores/userStore';
 
-<script lang="ts">
-  export default {
-    data() {
-    return {
-      passengerList: [] as { name: string; status: string }[], // Liste réactive de tuples
-    };
+const store = useUserStore(); // Access Pinia store
+
+// Props
+const props = defineProps({
+  passengers: {
+    type: Number,
+    required: true,
   },
-    props: {
-      passengers: { 
-        type: Number, 
-        required: true 
-      },
-      luggages: {
-        type: Number,
-        required: true
-      },
-      flight: {
-        type: Object,
-        required: true
-      },
-      date: {
-        type: Date,
-        required: true
-      }
+  luggages: {
+    type: Number,
+    required: true,
   },
-  created() {
-    this.passengerList = Array.from({ length: this.passengers }, () => ({
-      name: "",
-      status: "Adulte",
-    }));
+  flight: {
+    type: Object,
+    required: true,
   },
-    components: {
-    },
-    methods: {
-      close() {
-        this.$emit('close');
-      },
-      submitPassengers() {
-      console.log("Liste des passagers :", this.passengerList);
-      alert("Les passagers ont été stockés avec succès !");
-    },
-    },
-  };
+  date: {
+    type: Date,
+    required: true,
+  },
+});
+
+// Emits
+const emit = defineEmits(['close']);
+
+// Reactive state
+const passengerList = ref<{ name: string; status: string }[]>([]);
+
+// Lifecycle hook equivalent to "created"
+onMounted(() => {
+  passengerList.value = Array.from({ length: props.passengers }, () => ({
+    name: '',
+    status: 'Adulte',
+  }));
+});
+
+// Methods
+const close = () => {
+  emit('close');
+};
+
+const submitPassengers = async () => {
+  try {
+    await axios.post('http://localhost:3000/book', {
+      billets: passengerList.value,
+      bags: props.luggages,
+      flightId: props.flight.id,
+      date: props.date,
+      userId: store.currentUser ? store.currentUser['id'] : null,
+    });
+    console.log('Liste des passagers :', passengerList.value);
+    alert('Les passagers ont été stockés avec succès !');
+  } catch (error) {
+    console.error('Erreur lors de la soumission des passagers :', error);
+  }
+};
 </script>
