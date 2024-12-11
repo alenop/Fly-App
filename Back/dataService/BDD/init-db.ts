@@ -80,9 +80,7 @@ const initDB = async () => {
             CREATE TABLE IF NOT EXISTS Billet (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 nom VARCHAR(255) NOT NULL,
-                id_commande INT NOT NULL,
-                status VARCHAR(50) NOT NULL,
-                FOREIGN KEY (id_commande) REFERENCES Commande(id) ON DELETE CASCADE ON UPDATE CASCADE
+                status VARCHAR(50) NOT NULL
             )
         `);
 

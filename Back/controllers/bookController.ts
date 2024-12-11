@@ -8,12 +8,12 @@ import { BookingBdd } from '../dataService/BDD/BookingBdd';
 export class BookController{
     private bdd = new BookingBdd();
 
-    bookFlight(book:Book,total_price:number,billets:[]){
-        this.bdd.insertBooking(book.flightId,book.userId,total_price,book.date,billets);
+    async bookFlight(book:Book,total_price:number,id_billets:Number[]){
+        await this.bdd.insertBooking(book.flightId,book.userId,total_price,book.date,id_billets);
     }
 
-    getAllBooks(){
-        this.bdd.getBookings();
+    async getAllBooks(){
+        await this.bdd.getBookings();
     }
     async getBook(flightId:number){
        return await this.bdd.getbook(flightId) as Book[];

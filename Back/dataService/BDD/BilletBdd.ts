@@ -1,15 +1,16 @@
-import {RowDataPacket,FieldPacket} from 'mysql2';
+import {RowDataPacket,FieldPacket,ResultSetHeader, QueryResult} from 'mysql2';
 import { createConnection } from "./bdd";
 export class BilletBdd {
     
-    public async insertFlight (idCommand: string, name: string, status: string) {
+    public async insertBillet ( name: string, status: string) {
         const connection = await createConnection();
-        const [result] = await connection.execute(
-            `INSERT INTO Billet (id_commande,name,status) VALUES (?, ?, ?)`,
-            [idCommand,name,status]
+        const [result]:[QueryResult,FieldPacket[]] = await connection.execute(
+            `INSERT INTO Billet (nom,status) VALUES (?, ?)`,
+            [name,status]
         );
         console.log('Billet inserted:', result);
         await connection.end();
+        return (result as ResultSetHeader).insertId;
     };
 
     public async getBillet (id:number) {
