@@ -1,13 +1,17 @@
 import {UserController} from './userController';
 import {BookController} from './bookController';
+import { AirportController } from './airportController';
 import { Book } from '../models/Book';
 import {FlightBdd} from '../dataService/BDD/FlightBdd';
 import {BilletBdd} from '../dataService/BDD/BilletBdd';
 import { Flight } from '../models/Flight';
 import {Billet} from '../models/Billet';
+import {RealFlight} from '../models/RealFlight'
+import { Airport } from '../models/Airport';
 export class MainController {
     private userController = new UserController();
     private bookController = new BookController();
+    private airportController = new AirportController();
     private flightBdd = new FlightBdd();
     private billetBdd = new BilletBdd();
 
@@ -15,6 +19,20 @@ export class MainController {
         const flight = (await this.flightBdd.getFlight(book.flightId)) as Flight;
         const total_price = await this.calculatePrice(billets,flight.price);
         this.bookController.bookFlight(book,total_price,billets);
+    }
+
+    public async getAllFlights(){
+        const volsForFront:RealFlight[] = []
+        const vols = await this.flightBdd.getFlights();
+        for (const vol of vols as Flight[]){
+           const airportD:Airport =  await this.airportController.getAirportById(Number(vol.departure)) as Airport;
+           const airportA:Airport =  await this.airportController.getAirportById(Number(vol.arrival) ) as Airport ;
+           const volForFront:RealFlight = {capacity:vol.capacity,price:vol.price,id:vol.id,departureAirport:airportD,arrivalAirport:airportA};
+           volsForFront.push(volForFront);
+        }
+        return volsForFront;
+        
+       
     }
 
     public getBookController(){
