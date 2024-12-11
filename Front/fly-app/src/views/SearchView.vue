@@ -156,7 +156,9 @@
 <script language="ts">
 import ReserveForm from '@/components/ReserveForm.vue';
 import Menu from '../components/Menu.vue'
-
+import axios from 'axios';
+const res = await axios.get("http://localhost:3000/flights");
+console.log(res.data.flight);
 export default {
   data() {
     return {
