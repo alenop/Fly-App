@@ -1,11 +1,9 @@
 export class Billet{
     id?:number;
-    id_commande:string;
     status:string;
     name:string;
 
-    constructor( idCommand:string, status:string, name:string){
-        this.id_commande=idCommand;
+    constructor( status:string, name:string){
         this.status=status;
         this.name=name;
     }
