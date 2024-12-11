@@ -245,7 +245,7 @@ export default {
           .then(response => {
             console.log(response.data);
             console.log(vol.depart);
-            vol.departureAirport = response.data.airport;
+            vol.departureAirport = response.data.airportId;
             console.log('Aéroport ajouté pour vol:', vol);
           })
           .catch(error => {
