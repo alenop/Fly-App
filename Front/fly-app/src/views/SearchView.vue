@@ -40,7 +40,7 @@
         <div class="flex column">
           <h1>Vol n° {{ vol.nom }} - {{ vol.departureAirport.code }}-{{ vol.arrivalAirport.code }}</h1>
           <h3>. Départ : {{ vol.departureAirport.nom }} - {{ vol.departureAirport.ville }}, {{ vol.departureAirport.pays }}</h3>
-          <h3>. Arrivée : {{ vol.arrivalAirport.nom }} - {{ vol.arrivalAirport.ville }}, {{ vol.arrivalAirport.pays }} ({{ vol.arrivalAirport.code }})</h3>
+          <h3>. Arrivée : {{ vol.arrivalAirport.nom }} - {{ vol.arrivalAirport.ville }}, {{ vol.arrivalAirport.pays }}</h3>
           <h4>Places disponibles : {{ vol.seatavailable }}/{{ vol.place }}</h4>
           <h4>Prix : {{ calculatePriceCurrency(vol) }}{{ reservecurrency.symbol }}</h4>
         </div>
