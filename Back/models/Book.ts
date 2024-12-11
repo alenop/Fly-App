@@ -4,9 +4,9 @@ export class Book{
     userId:number;
     date:Date;
     bags:number;
-    billets:[];
+    id_billets:[];
     constructor(flightId:number, userId:number, date:Date, bags:number,billets:[]){
-        this.billets=billets;
+        this.id_billets=billets;
         this.flightId=flightId;
         this.userId=userId;
         this.date=date;

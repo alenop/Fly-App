@@ -17,9 +17,9 @@ export class BookingBdd {
     public async getbook (flightId:number) {
         const connection = await createConnection();
         const [rows]:[RowDataPacket[], FieldPacket[]] = await connection.execute(`SELECT * FROM ${this.tableName} WHERE id_vol = ?`,[flightId]);
-        console.log('Vols:', rows);
+        console.log('books:', rows);
         await connection.end();
-        return rows[0];
+        return rows;
     };
 
     // Get all Bookings from the "Booking" table

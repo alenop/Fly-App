@@ -16,7 +16,7 @@ export class BookController{
         this.bdd.getBookings();
     }
     async getBook(flightId:number){
-       return await this.bdd.getbook(flightId) as Book;
+       return await this.bdd.getbook(flightId) as Book[];
     }
     deleteBook(){
 

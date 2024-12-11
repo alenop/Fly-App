@@ -15,10 +15,10 @@ export class MainController {
     private flightBdd = new FlightBdd();
     private billetBdd = new BilletBdd();
 
-    public async bookFlight(book:Book,billets:[]){
+    public async bookFlight(book:Book){
         const flight = (await this.flightBdd.getFlight(book.flightId)) as Flight;
-        const total_price = await this.calculatePrice(billets,flight.prix);
-        this.bookController.bookFlight(book,total_price,billets);
+        const total_price = await this.calculatePrice(book.id_billets,flight.prix);
+        this.bookController.bookFlight(book,total_price,book.id_billets);
     }
 
     public async getAllFlights(){
@@ -28,12 +28,20 @@ export class MainController {
         for (const vol of vols){
             if(vol.id){
            const airportD:Airport =  await this.airportController.getAirportById(Number(vol.depart)) as Airport;
-           const airportA:Airport =  await this.airportController.getAirportById(Number(vol.arrivee) ) as Airport ;         
-           const currentsSeatsTaken = (await this.bookController.getBook(vol.id)).billets.length-1;       
+           const airportA:Airport =  await this.airportController.getAirportById(Number(vol.arrivee) ) as Airport ;  
+           const books = (await this.bookController.getBook(vol.id));
+           let currentsSeatsTaken=0;
+           console.log("bn",books);
+           for (const book of books){  
+            console.log(book.id_billets);
+            console.log(book.id_billets.length);     
+            currentsSeatsTaken += book.id_billets.length;       
+           }
            const volForFront:RealFlight = {seatavailable:vol.place-currentsSeatsTaken,capacity:vol.place,prix:vol.prix,id:vol.id,departureAirport:airportD,arrivalAirport:airportA};
            volsForFront.push(volForFront);
             }
         }
+        console.log(volsForFront);
         return volsForFront;
         
        
@@ -55,11 +63,11 @@ export class MainController {
                 }
             }
             if(adults >=2 && children >=2){
-                return flight_price*(billets.length-2);
+                return flight_price*(billets.length-1);
             }
             
         }
-        return flight_price*(billets.length-1);
+        return flight_price*(billets.length);
     }
     
 }
