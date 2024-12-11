@@ -5,8 +5,8 @@ import { FlightController } from '../../controllers/flightController'
 const router = Router();
 const flightController = new FlightController;
 
-router.get('/', (req: Request, res: Response) => {
-    res.json({ message: 'List of flights : ', flight:flightController.getAllFlights() });
+router.get('/',async (req: Request, res: Response) => {
+    res.json({ message: 'list of flights', flight:await flightController.getAllFlights() });
   });
 
-export default router;
+  export default router;
