@@ -231,8 +231,8 @@ export default {
     getFlights() {
       axios.get('http://localhost:3000/flights')
         .then(response => {
-          this.vols = response.data.flight;
-          this.getAirports();
+          this.vols = response.data.flights;
+          //this.getAirports();
           //console.log(this.vols);
         })
         .catch(error => {
