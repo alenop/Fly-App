@@ -6,5 +6,5 @@ const router = Router();
 const flightController = new FlightController;
 
 router.get('/flights', (req: Request, res: Response) => {
-    res.json({ message: 'Users yeah', users:flightController.getAllFlights() });
+    res.json({ message: 'list of flights', flight:flightController.getAllFlights() });
   });
