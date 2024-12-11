@@ -38,11 +38,10 @@
     <div class="flex column left flights">                 <!-- flight list-->
       <div v-for="vol in vols" class="flex row flight">
         <div class="flex column">
-          <h1>Vol n° {{ vol.nom }} - {{ vol.codeDeparture }}-{{ vol.codeArrival }}</h1>
+          <h1>Vol n° {{ vol.nom }} - {{ vol.departureAirport }}-{{ vol.arrivee }}</h1>
           <h2>Départ : {{ vol.cityDeparture }}, {{ vol.countryDeparture }} ({{ vol.codeDeparture }})</h2>
           <h2>Arrivée : {{ vol.cityArrival }}, {{ vol.countryArrival }} ({{ vol.codeArrival }})</h2>
-          <h4>Durée : {{ vol.duration }}h</h4>
-          <h4>Places disponibles : {{ vol.seatavailable }}/{{ vol.seat }}</h4>
+          <h4>Places disponibles : {{ vol.seatavailable }}/{{ vol.place }}</h4>
           <h4>Prix : {{ calculatePriceCurrency(vol) }}{{ reservecurrency.symbol }}</h4>
         </div>
         <div>
@@ -227,18 +226,31 @@ export default {
     },
     calculatePriceCurrency(vol) {
       const rate = parseFloat(this.reservecurrency.rate);
-      return parseInt(parseInt(vol.price) * rate);
+      return parseInt(parseInt(vol.prix) * rate);
     },
     getFlights() {
       axios.get('http://localhost:3000/flights')
         .then(response => {
-          this.vols = response.data;
-          console.log(this.vols);
+          this.vols = response.data.flight;
+          this.getAirports();
+          // console.log(this.vols);
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des vols:', error);
         });
-    }
+    },
+    getAirports() {
+      this.vols.forEach((vol) => {
+        axios.get(`http://localhost:3000/airports/id/{vol.depart}`)
+          .then(response => {
+            vol.departureAirport = response.data.airport;
+            console.log('Aéroport ajouté pour vol:', vol);
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération de l\'aéroport:', error);
+          });
+        });
+      }
   },
 };
 </script>
