@@ -17,18 +17,22 @@ export class MainController {
 
     public async bookFlight(book:Book,billets:[]){
         const flight = (await this.flightBdd.getFlight(book.flightId)) as Flight;
-        const total_price = await this.calculatePrice(billets,flight.price);
+        const total_price = await this.calculatePrice(billets,flight.prix);
         this.bookController.bookFlight(book,total_price,billets);
     }
 
     public async getAllFlights(){
         const volsForFront:RealFlight[] = []
         const vols:Flight[] = await this.flightBdd.getFlights() as Flight[];
+        
         for (const vol of vols){
+            if(vol.id){
            const airportD:Airport =  await this.airportController.getAirportById(Number(vol.depart)) as Airport;
-           const airportA:Airport =  await this.airportController.getAirportById(Number(vol.arrivee) ) as Airport ;
-           const volForFront:RealFlight = {capacity:vol.capacity,price:vol.price,id:vol.id,departureAirport:airportD,arrivalAirport:airportA};
+           const airportA:Airport =  await this.airportController.getAirportById(Number(vol.arrivee) ) as Airport ;         
+           const currentsSeatsTaken = (await this.bookController.getBook(vol.id)).billets.length-1;       
+           const volForFront:RealFlight = {seatavailable:vol.place-currentsSeatsTaken,capacity:vol.place,prix:vol.prix,id:vol.id,departureAirport:airportD,arrivalAirport:airportA};
            volsForFront.push(volForFront);
+            }
         }
         return volsForFront;
         

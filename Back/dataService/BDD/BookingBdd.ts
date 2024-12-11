@@ -1,6 +1,6 @@
 // BookingBdd.ts
 import { createConnection } from "./bdd";
-
+import { RowDataPacket,FieldPacket } from "mysql2";
 export class BookingBdd {
     public tableName:string="Commande"
     // Insert a new Booking into the "Booking" table
@@ -13,6 +13,14 @@ export class BookingBdd {
         console.log('Booking inserted:', result);
         await connection.end();
     }
+
+    public async getbook (flightId:number) {
+        const connection = await createConnection();
+        const [rows]:[RowDataPacket[], FieldPacket[]] = await connection.execute(`SELECT * FROM ${this.tableName} WHERE id_vol = ?`,[flightId]);
+        console.log('Vols:', rows);
+        await connection.end();
+        return rows[0];
+    };
 
     // Get all Bookings from the "Booking" table
     public async getBookings() {
