@@ -23,10 +23,10 @@ export class FlightBdd {
 
     public async getFlights () {
         const connection = await createConnection();
-        const [rows] = await connection.execute(`SELECT * FROM Vol`);
+        const [rows]:[RowDataPacket[], FieldPacket[]] = await connection.execute(`SELECT * FROM Vol`);
         console.log('Vols:', rows);
         await connection.end();
-        return rows;
+        return rows[0];
     };
     
     public async deleteFlight (id: number) {
