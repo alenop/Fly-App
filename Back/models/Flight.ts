@@ -1,13 +1,13 @@
 export class Flight{
     id?:number;
-    departure:string;
-    arrival:string;
+    depart:string;
+    arrivee:string;
     price:number;
     capacity:number;
 
     constructor( departure:string, arrival:string, price:number, capacity:number){
-        this.departure=departure;
-        this.arrival=arrival;
+        this.depart=departure;
+        this.arrivee=arrival;
         this.price=price;
         this.capacity=capacity;
     }
