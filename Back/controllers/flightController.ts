@@ -5,6 +5,6 @@ export class FlightController{
 
     private bdd = new (FlightBdd);
     async getAllFlights(){
-        return this.bdd.getFlight;
+        return await this.bdd.getFlights();
     }
 }
