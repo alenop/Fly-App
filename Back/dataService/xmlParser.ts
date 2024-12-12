@@ -42,6 +42,7 @@ export async function getExchangeRates():Promise<[]> {
     const rates = result['gesmes:Envelope']['Cube'][0]['Cube'][0]['Cube'];
 
     // Récupérer chaque taux de change et associer le symbole
+    rates.push({ '$': { currency: 'EUR', rate: '1' } });
     const exchangeRates = rates.map((rate: any) => {
       const currency = rate['$'].currency;
       const rateValue = rate['$'].rate;

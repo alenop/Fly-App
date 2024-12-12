@@ -6,7 +6,6 @@
 	</gesmes:Sender>
 	<Cube>
 		<Cube time='2024-12-06'>
-			<Cube currency='EUR' rate='1'/>
 			<Cube currency='USD' rate='1.0581'/>
 			<Cube currency='JPY' rate='159.25'/>
 			<Cube currency='BGN' rate='1.9558'/>
