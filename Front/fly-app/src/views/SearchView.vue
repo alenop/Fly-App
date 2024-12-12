@@ -109,7 +109,7 @@
   gap: 10px;
   border: outset 2px #4444FF;
   border-radius: 15px;
-  max-width: 60vw;
+  max-width: 65vw;
   justify-content: space-around;
   padding: 3vh 2vw;
   background-color: #2424858d;
