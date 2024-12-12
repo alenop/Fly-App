@@ -33,7 +33,7 @@ const currencySymbols: { [key: string]: string } = {
   ZAR: 'R',
 };
 
-export async function getExchangeRates() {
+export async function getExchangeRates():Promise<[]> {
   try {
     const xmlData = readFileSync('eurofxref-daily.xml', 'utf-8');
     const result = await parseStringPromise(xmlData);
@@ -58,5 +58,3 @@ export async function getExchangeRates() {
     throw new Error('Erreur lors du traitement des données XML');
   }
 }
-
-getExchangeRates();
