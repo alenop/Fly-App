@@ -15,10 +15,11 @@ export class BookController{
     async getAllBooks(){
         await this.bdd.getBookings();
     }
+
     async getBook(flightId:number){
        return await this.bdd.getbook(flightId) as Book[];
     }
     deleteBook(){
-
+        this.bdd.delete("book");
     }
 }
