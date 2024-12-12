@@ -28,8 +28,8 @@
       <div class="flex column">
         <p>Monnaie: </p>
         <select v-model="reservecurrency" id="currency">
-          <option v-for="currency in currencies" :value="currency"> 
-            {{ currency.code }}
+          <option v-for="currency of currencies" :value="currency"> 
+            {{ currency.currency }}
           </option>
         </select>
       </div>
@@ -213,7 +213,7 @@ export default {
     ReserveForm,
   },
   async mounted() {
-    // await this.getFlights();
+    await this.getFlights();
     await this.getCurrencies();
   },
   methods: {
@@ -230,17 +230,18 @@ export default {
       return (this.calculatePriceCurrency(vol) * this.reservepassengers)+luggageprice;
     },
     calculateLuggageCurrency() {
-      return parseInt(parseFloat(this.reservecurrency.rate) * 100);
+      return parseInt(parseFloat(this.reservecurrency.value ?? 1) * 100);
     },
     calculatePriceCurrency(vol) {
-      const rate = parseFloat(this.reservecurrency.rate);
+      const rate = parseFloat(this.reservecurrency.value ?? 1);
       return parseInt(parseInt(vol.prix) * rate);
     },
     async getCurrencies() {
       console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"); 
       await axios.get('http://localhost:3000/rates')
         .then(response => {
-          this.currencies = response.data;
+          console.log(response.data.message);
+          this.currencies = response.data.message;
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des monnaies:', error);
@@ -250,40 +251,12 @@ export default {
       await axios.get('http://localhost:3000/flights')
         .then(response => {
           this.vols = response.data.flights;
-          //this.getAirports();
-          //console.log(this.vols);
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des vols:', error);
         });
     },
-    getAirports() {
-      this.vols.forEach((vol) => {
-        axios.get(`http://localhost:3000/airports/id/${vol.depart}`)
-          .then(response => {
-            console.log(response.data);
-            console.log(vol.depart);
-            vol.departureAirport = response.data.airportId;
-            console.log('Aéroport de départ ajouté pour vol:', departureAirport);
-          })
-          .catch(error => {
-            console.error('Erreur lors de la récupération de l\'aéroport:', error);
-          }
-        );
-        axios.get(`http://localhost:3000/airports/id/${vol.arrivee}`)
-          .then(response => {
-            console.log(response.data);
-            console.log(vol.depart);
-            vol.arrivalAirport = response.data.airportId;
-            console.log('Aéroport d arrivee ajouté pour vol:', arrivalAirport);
-          })
-          .catch(error => {
-            console.error('Erreur lors de la récupération de l\'aéroport:', error);
-          }
-        );
-      }
-      );
-    }
+
   },
 };
 </script>
