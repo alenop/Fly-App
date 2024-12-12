@@ -90,6 +90,7 @@
   color: white;
   background-color:  #24248556;
   border-radius: 2%;
+  padding-bottom: 3vh;
 }
 
 .search-item {
