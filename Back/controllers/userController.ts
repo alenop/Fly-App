@@ -34,12 +34,11 @@ export class UserController {
 
     async check(username:string,password:string){
         for (const i of await this.bdd.getClients()){
-            if (i.username === username && await this.verifyPassword(password,i.password)){
+            if ((i.username === username || i.mail === username) && await this.verifyPassword(password,i.password)){
                 console.log("i:",i);
                 return i;
             }
         }
-        console.log("la ?");
         return false;
     }
 

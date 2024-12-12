@@ -23,7 +23,7 @@
 <style scoped>
 
 .menu {
-  background-color: #4444FF;
+  background-color: #5a68ab;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

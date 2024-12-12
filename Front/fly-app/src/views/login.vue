@@ -16,40 +16,58 @@
         <div class="seconnecter">
           <button type="submit" :disabled="loading" style="position: relative; top: -90px; right: 290px; background-color: rgb(54, 69, 79); ">Se connecter</button>
         </div>
+        <div class="seconnecter">
+          <button @click="goToSign()" :disabled="loading" style="margin-left:190px; position: relative; top: -90px; right: 290px; background-color: rgb(54, 69, 79); ">S'inscrire</button>
+        </div>
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
         </form> 
       </div>          
     </div>
   </div>
 </template> 
-  
-  <script>
-  export default {
-    data() {
-      return {
-        email: '',
-        password: '',
-        loading: false,
-        errorMessage: '',
-      };
-    },
-    methods: {
-      async login() {
-        this.loading = true;
-        this.errorMessage = '';
-  
-        try {
-        
-          this.$router.push('/search');
-        } catch (error) {
-          this.errorMessage = 'Erreur de connexion. Veuillez vérifier vos informations.';
-        } finally {
-          this.loading = false;
-        }
-      },
-    },  
-  };
-  </script>
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+import { useUserStore } from '@/stores/userStore';
+
+const store = useUserStore(); // Access Pinia store
+const router = useRouter(); // Access Vue Router
+
+// Reactive state
+const email = ref('');
+const password = ref('');
+const loading = ref(false);
+const errorMessage = ref('');
+
+// Methods
+const goToSign = () => {
+  router.push('/register'); // Navigate to the register page
+};
+
+const login = async () => {
+  loading.value = true;
+  errorMessage.value = '';
+  console.log(email.value);
+  try {
+    const { data } = await axios.post('http://localhost:3000/user/login', {
+      username: email.value,
+      password: password.value,
+    });
+
+    if (!data.message) {
+      errorMessage.value = 'Erreur de connexion. Veuillez vérifier vos informations.';
+    } else {
+      store.storeCurrentUser(data.message); // Store user in Pinia
+      router.push('/search'); // Navigate to the search page
+    }
+  } catch (error) {
+    errorMessage.value = 'Erreur de connexion. Veuillez vérifier vos informations.';
+  } finally {
+    loading.value = false;
+  }
+};
+</script>
   
 
 <style>
@@ -57,7 +75,7 @@
 #cardre-connexion{
     width: 400px;
     height: 200px;
-    background: #4444FF;
+    background: #5a68ab;
     position: absolute; 
     right: 550px;
     top: 220px; 
