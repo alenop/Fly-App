@@ -10,7 +10,7 @@
         <div class="flew column">
           <p>Aéroport de départ:</p>
           <select>
-            <option>CDG</option>
+            <option>CDG</option>  
             <option>JFK</option>
             <option>DTW</option>
           </select>
@@ -166,39 +166,40 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      currencies: [
-        {
-          code: 'EUR',
-          name: 'Euros',
-          rate: '1',
-          symbol: '€',
-        },
-        {
-          code: 'USD',
-          name: 'Dollars Américains',
-          rate: '1.0581',
-          symbol: '$',
-        },
-        {
-          code: 'JPY',
-          name: 'Yen',
-          rate: '159.25',
-          symbol: '¥'
-        },
-        {
-          code: 'GPB',
-          name: 'Livres Sterling',
-          rate: '0.82855',
-          symbol: '£'
-        },
-        {
-          code: 'CAD',
-          name: 'Dollars Canadien',
-          rate: '1.4882',
-          symbol: '$'
-        },
-      ],
+      // currencies: [
+      //   {
+      //     code: 'EUR',
+      //     name: 'Euros',
+      //     rate: '1',
+      //     symbol: '€',
+      //   },
+      //   {
+      //     code: 'USD',
+      //     name: 'Dollars Américains',
+      //     rate: '1.0581',
+      //     symbol: '$',
+      //   },
+      //   {
+      //     code: 'JPY',
+      //     name: 'Yen',
+      //     rate: '159.25',
+      //     symbol: '¥'
+      //   },
+      //   {
+      //     code: 'GPB',
+      //     name: 'Livres Sterling',
+      //     rate: '0.82855',
+      //     symbol: '£'
+      //   },
+      //   {
+      //     code: 'CAD',
+      //     name: 'Dollars Canadien',
+      //     rate: '1.4882',
+      //     symbol: '$'
+      //   },
+      // ],
       vols: [],
+      currencies: [],
       reserveluggage: '0',
       reservepassengers: '1',
       reservedate: new Date().toISOString().substr(0, 10),
@@ -212,7 +213,8 @@ export default {
     ReserveForm,
   },
   async mounted() {
-    await this.getFlights();
+    // await this.getFlights();
+    await this.getCurrencies();
   },
   methods: {
     showNextForm(vol) {
@@ -233,6 +235,16 @@ export default {
     calculatePriceCurrency(vol) {
       const rate = parseFloat(this.reservecurrency.rate);
       return parseInt(parseInt(vol.prix) * rate);
+    },
+    async getCurrencies() {
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"); 
+      await axios.get('http://localhost:3000/rates')
+        .then(response => {
+          this.currencies = response.data;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des monnaies:', error);
+        })
     },
     async getFlights() {
       await axios.get('http://localhost:3000/flights')
