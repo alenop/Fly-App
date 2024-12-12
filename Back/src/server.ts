@@ -4,6 +4,7 @@ import routerUser from './routes/userRoutes'; // Assuming you have userRoutes
 import routerFlights from './routes/flightRoutes';
 import routerAirports from './routes/airportRoutes'
 import routerBook from './routes/bookRoutes';
+import routerCurrency from './routes/currencyRoutes'
 import cors from 'cors';
 dotenv.config();
 
@@ -12,8 +13,6 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON requests
 app.use(express.json());
-
-
 
 // Apply CORS middleware globally
 app.use(cors());
@@ -27,7 +26,11 @@ app.use('/flights', routerFlights);
 //use airports routes
 app.use('/airports', routerAirports);
 
+//use book routes
 app.use('/book',routerBook);
+
+//use rates route
+app.use('/rates', routerCurrency);
 
 // Define a simple route
 app.get('/', (req: Request, res: Response) => {
